@@ -1,50 +1,167 @@
 ---
+import { ExternalLink } from '@lucide/astro';
 import { projects } from '../data/data';
 ---
+
 <div class="gallery">
-  {projects.map((project) => (
-    <article class="project">
-      {project.action.type === 'viewer' ? (
-        <button class="visual viewer-trigger" type="button" data-full-image={project.action.fullImage ?? project.image} data-alt={project.alt} data-title={project.title} aria-label={`View ${project.title} full size`}><img src={project.image} alt={project.alt} loading="lazy" /></button>
-      ) : (
-        <a class="visual" href={project.action.href} target={project.action.type === 'external' ? '_blank' : undefined} rel={project.action.type === 'external' ? 'noreferrer' : undefined}><img src={project.image} alt={project.alt} loading="lazy" /></a>
-      )}
-    </article>
-  ))}
+  {
+    projects.map(project => (
+      <article class="project">
+        {project.action.type === 'viewer' ? (
+          <button
+            class="visual viewer-trigger"
+            type="button"
+            data-full-image={project.action.fullImage ?? project.image}
+            data-alt={project.alt}
+            aria-label={`View ${project.title} full size`}
+          >
+            <img src={project.image} alt={project.alt} loading="lazy" />
+          </button>
+        ) : (
+          <a
+            class="visual"
+            href={project.action.href}
+            target={project.action.type === 'external' ? '_blank' : undefined}
+            rel={project.action.type === 'external' ? 'noreferrer' : undefined}
+          >
+            <img src={project.image} alt={project.alt} loading="lazy" />
+          </a>
+        )}
+        {project.projectUrl && (
+          <a
+            class="project-link"
+            href={project.projectUrl}
+            target="_blank"
+            rel="noreferrer"
+          >
+            View live project{' '}
+            <ExternalLink aria-hidden="true" size={12} stroke-width={1.6} />
+          </a>
+        )}
+      </article>
+    ))
+  }
 </div>
-<dialog class="viewer" aria-labelledby="viewer-title">
-  <button class="close" type="button" aria-label="Close image viewer">Close</button>
-  <figure><img src="" alt="" /><figcaption id="viewer-title"></figcaption></figure>
+<dialog class="viewer" aria-label="Full-size project image">
+  <button class="close" type="button" aria-label="Close image viewer"
+    >Close</button
+  >
+  <figure><img src="" alt="" /></figure>
 </dialog>
 <script>
   const dialog = document.querySelector<HTMLDialogElement>('.viewer');
   const dialogImage = dialog?.querySelector('img');
-  const dialogTitle = dialog?.querySelector('figcaption');
-  document.querySelectorAll<HTMLButtonElement>('.viewer-trigger').forEach((trigger) => trigger.addEventListener('click', () => {
-    if (!dialog || !dialogImage || !dialogTitle) return;
-    dialogImage.src = trigger.dataset.fullImage ?? '';
-    dialogImage.alt = trigger.dataset.alt ?? '';
-    dialogTitle.textContent = trigger.dataset.title ?? '';
-    dialog.showModal();
-  }));
-  dialog?.querySelector('.close')?.addEventListener('click', () => dialog.close());
-  dialog?.addEventListener('click', (event) => { if (event.target === dialog) dialog.close(); });
+  document
+    .querySelectorAll<HTMLButtonElement>('.viewer-trigger')
+    .forEach(trigger =>
+      trigger.addEventListener('click', () => {
+        if (!dialog || !dialogImage) return;
+        dialogImage.src = trigger.dataset.fullImage ?? '';
+        dialogImage.alt = trigger.dataset.alt ?? '';
+        dialog.showModal();
+      }),
+    );
+  dialog
+    ?.querySelector('.close')
+    ?.addEventListener('click', () => dialog.close());
+  dialog?.addEventListener('click', event => {
+    if (event.target === dialog) dialog.close();
+  });
 </script>
 <style>
-  .gallery { columns: 2; column-gap: 10px; }
-  .project { break-inside: avoid; margin-bottom: 10px; }
-  .visual { display: block; width: 100%; border: 0; padding: 0; background: none; cursor: zoom-in; transition-property: scale; transition-duration: 150ms; transition-timing-function: ease-out; }
-  a.visual { cursor: pointer; }
-  .visual img { width: 100%; background: #f1f1f1; transition-property: opacity; transition-duration: 150ms; transition-timing-function: ease-out; }
-  .visual:hover img { opacity: .9; }
-  .visual:active { scale: .96; }
-  .viewer { width: min(94vw, 1200px); max-width: none; max-height: 92vh; padding: 48px 24px 20px; border: 0; background: #fff; box-shadow: 0 0 0 1px oklch(0 0 0 / .06), 0 1px 2px -1px oklch(0 0 0 / .06), 0 2px 4px oklch(0 0 0 / .04); }
-  .viewer::backdrop { background: rgb(0 0 0 / .35); }
-  .viewer figure { margin: 0; }
-  .viewer img { max-height: calc(92vh - 100px); margin: auto; object-fit: contain; }
-  .viewer figcaption { margin-top: 12px; color: var(--muted-text-color); text-align: center; font-size: .75em; }
-  .close { position: absolute; top: 10px; right: 12px; border: 0; border-radius: 4px; padding: 6px 8px; background: transparent; cursor: pointer; transition-property: background-color, scale; transition-duration: 150ms; transition-timing-function: ease-out; }
-  .close:hover { background: oklch(0 0 0 / .06); }
-  .close:active { scale: .96; }
-  @media (max-width: 700px) { .gallery { columns: 1; } }
+  .gallery {
+    columns: 2;
+    column-gap: 10px;
+  }
+  .project {
+    break-inside: avoid;
+    margin-bottom: 10px;
+  }
+  .visual {
+    display: block;
+    width: 100%;
+    border: 0;
+    padding: 0;
+    background: none;
+    cursor: zoom-in;
+    transition-property: scale;
+    transition-duration: 150ms;
+    transition-timing-function: ease-out;
+  }
+  a.visual {
+    cursor: pointer;
+  }
+  .visual img {
+    width: 100%;
+    background: #f1f1f1;
+    transition-property: opacity;
+    transition-duration: 150ms;
+    transition-timing-function: ease-out;
+  }
+  .visual:hover img {
+    opacity: 0.9;
+  }
+  .visual:active {
+    scale: 0.96;
+  }
+  .project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 7px;
+    color: var(--muted-text-color);
+    font-size: 0.7em;
+    text-decoration: none;
+    transition: color 150ms ease-out;
+  }
+  .project-link:hover {
+    color: var(--text-color);
+  }
+  .viewer {
+    width: min(94vw, 1200px);
+    max-width: none;
+    max-height: 92vh;
+    padding: 48px 24px 20px;
+    border: 0;
+    background: #fff;
+    box-shadow:
+      0 0 0 1px oklch(0 0 0 / 0.06),
+      0 1px 2px -1px oklch(0 0 0 / 0.06),
+      0 2px 4px oklch(0 0 0 / 0.04);
+  }
+  .viewer::backdrop {
+    background: rgb(0 0 0 / 0.35);
+  }
+  .viewer figure {
+    margin: 0;
+  }
+  .viewer img {
+    max-height: calc(92vh - 100px);
+    margin: auto;
+    object-fit: contain;
+  }
+  .close {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    border: 0;
+    border-radius: 4px;
+    padding: 6px 8px;
+    background: transparent;
+    cursor: pointer;
+    transition-property: background-color, scale;
+    transition-duration: 150ms;
+    transition-timing-function: ease-out;
+  }
+  .close:hover {
+    background: oklch(0 0 0 / 0.06);
+  }
+  .close:active {
+    scale: 0.96;
+  }
+  @media (max-width: 700px) {
+    .gallery {
+      columns: 1;
+    }
+  }
 </style>

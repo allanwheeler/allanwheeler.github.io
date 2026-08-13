@@ -3,6 +3,7 @@ export type Project = {
   image: string;
   alt: string;
   tools: string[];
+  projectUrl?: string;
   action:
     | { type: 'viewer'; fullImage?: string }
     | { type: 'external'; href: string }
@@ -15,6 +16,7 @@ export const projects: Project[] = [
     image: '/images/portfolio/2026-tax-competitiveness.gif',
     alt: 'Interactive map and ranking chart comparing state tax competitiveness in 2026',
     tools: ['D3.js', 'Svelte'],
+    projectUrl: 'https://2026-tax-competitiveness.allanxwheeler.workers.dev/',
     action: { type: 'viewer' },
   },
   {
@@ -22,6 +24,7 @@ export const projects: Project[] = [
     image: '/images/portfolio/fraiser-beeswarm.gif',
     alt: 'Animated beeswarm chart showing average episode ratings for the television series Frasier',
     tools: ['D3.js', 'Svelte'],
+    projectUrl: 'https://www.allanwheeler.com/imdb-interactive-beeswarm/',
     action: { type: 'viewer' },
   },
   {
@@ -29,6 +32,7 @@ export const projects: Project[] = [
     image: '/images/portfolio/cato-social-security.png',
     alt: 'Cato Institute Social Security report website with charts and article cards',
     tools: ['HTML', 'CSS'],
+    projectUrl: 'https://www.cato.org/social-security',
     action: { type: 'viewer' },
   },
   {
