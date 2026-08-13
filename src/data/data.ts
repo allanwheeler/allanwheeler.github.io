@@ -3,10 +3,20 @@ export type Project = {
   image: string;
   alt: string;
   tools: string[];
-  action: { type: 'viewer'; fullImage?: string } | { type: 'external'; href: string } | { type: 'internal'; href: string };
+  action:
+    | { type: 'viewer'; fullImage?: string }
+    | { type: 'external'; href: string }
+    | { type: 'internal'; href: string };
 };
 
 export const projects: Project[] = [
+  {
+    title: '2026 state tax competitiveness rankings',
+    image: '/images/portfolio/2026-tax-competitiveness.gif',
+    alt: 'Interactive map and ranking chart comparing state tax competitiveness in 2026',
+    tools: ['D3.js', 'Svelte'],
+    action: { type: 'viewer' },
+  },
   {
     title: 'Average episode ratings for Frasier',
     image: '/images/portfolio/fraiser-beeswarm.gif',
@@ -26,13 +36,6 @@ export const projects: Project[] = [
     image: '/images/portfolio/agency-consolidation.gif',
     alt: 'Animated flow diagram showing federal agency consolidation',
     tools: ['D3.js'],
-    action: { type: 'viewer' },
-  },
-  {
-    title: '2026 state tax competitiveness rankings',
-    image: '/images/portfolio/2026-tax-competitiveness.gif',
-    alt: 'Interactive map and ranking chart comparing state tax competitiveness in 2026',
-    tools: ['D3.js', 'Svelte'],
     action: { type: 'viewer' },
   },
   {
@@ -92,7 +95,8 @@ export const projects: Project[] = [
     action: { type: 'viewer' },
   },
   {
-    title: 'Bakersfield murders are starting the year among the lowest on record',
+    title:
+      'Bakersfield murders are starting the year among the lowest on record',
     image: '/images/portfolio/bkfd-murders.png',
     alt: 'Chart showing the running total of murders in Bakersfield, California',
     tools: ['Datawrapper'],
