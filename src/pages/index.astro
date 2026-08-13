@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import ProjectGallery from '../components/ProjectGallery.astro';
+---
+
+<BaseLayout
+  title="Allan Wheeler — Data Visualization Engineer"
+  description="Selected data visualization work by Allan Wheeler."
+>
+  <SiteHeader />
+  <main class="shell">
+    <header class="intro">
+      <p class="lede">
+        I’m a Data Visualization Engineer at the Cato Institute, where I create
+        charts, maps, interactives, and information graphics that translate
+        complex research into clear, engaging visual stories. My work spans
+        economics, public policy, healthcare, education, immigration, and
+        national defense. Previously, I worked in data analytics across healthcare and higher education.
+      </p>
+    </header>
+    <hr />
+    <h1>Selected work</h1>
+    <ProjectGallery />
+  </main>
+</BaseLayout>
+<style>
+  .intro {
+    padding-block: 28px 24px;
+  }
+  .intro p {
+    margin: 0;
+  }
+  hr {
+    margin: 0 0 24px;
+    border: 0;
+    border-top: 1px solid #d1d5db;
+  }
+</style>
