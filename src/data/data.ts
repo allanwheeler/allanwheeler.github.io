@@ -50,6 +50,14 @@ export const projects: Project[] = [
     action: { type: 'viewer' },
   },
   {
+    title: 'San Francisco rents are rising faster than every other major city',
+    image: '/images/portfolio/sf-chart.png',
+    alt: 'Beeswarm charts comparing year-over-year rent changes across the 100 largest United States rental markets',
+    tools: ['Datawrapper'],
+    action: { type: 'viewer' },
+  },
+
+  {
     title: 'Protectionism through history',
     image: '/images/portfolio/protectionism-madness.gif',
     alt: 'Animated radial timeline of protectionist policies throughout United States history',
@@ -60,13 +68,6 @@ export const projects: Project[] = [
     title: 'Employment-based green card cap',
     image: '/images/portfolio/green-card-cap.png',
     alt: 'Waterfall chart showing 220,455 green cards that could have been available to new arrivals in 2022',
-    tools: ['Datawrapper'],
-    action: { type: 'viewer' },
-  },
-  {
-    title: 'San Francisco rents are rising faster than every other major city',
-    image: '/images/portfolio/sf-chart.png',
-    alt: 'Beeswarm charts comparing year-over-year rent changes across the 100 largest United States rental markets',
     tools: ['Datawrapper'],
     action: { type: 'viewer' },
   },
