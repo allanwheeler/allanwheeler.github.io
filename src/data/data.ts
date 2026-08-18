@@ -56,7 +56,15 @@ export const projects: Project[] = [
     tools: ['Datawrapper'],
     action: { type: 'viewer' },
   },
-
+  {
+    title: 'FTES Overview for Kern County Community College District',
+    image: '/images/portfolio/kccd.gif',
+    alt: 'FTES Overview for Kern County Community College District',
+    tools: ['Tableau'],
+    projectUrl:
+      'https://public.tableau.com/app/profile/allan.wheeler/viz/FTESOverviewforKernCountyCommunityCollegeDistrict/OverviewofFTESforKernCountCommunityCollegeDistrict',
+    action: { type: 'viewer' },
+  },
   {
     title: 'Protectionism through history',
     image: '/images/portfolio/protectionism-madness.gif',
