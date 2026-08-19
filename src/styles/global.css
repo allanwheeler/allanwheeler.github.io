@@ -3,13 +3,13 @@
 
 :root {
   color-scheme: light;
-  --width: 650px;
+  --width: 800px;
   --font-main: Inter, sans-serif;
   --font-secondary: Inter, sans-serif;
   --font-scale: 1em;
   --background-color: #fff;
   --heading-color: #030712;
-  --text-color: #030712; 
+  --text-color: #030712;
   --muted-text-color: #6b7280;
   --link-color: #3273dc;
   --visited-color: #8b6fcb;
