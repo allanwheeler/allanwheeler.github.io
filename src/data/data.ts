@@ -57,19 +57,19 @@ export const projects: Project[] = [
     action: { type: 'viewer' },
   },
   {
+    title: 'Protectionism through history',
+    image: '/images/portfolio/protectionism-madness.gif',
+    alt: 'Animated radial timeline of protectionist policies throughout United States history',
+    tools: ['D3.js'],
+    action: { type: 'viewer' },
+  },
+  {
     title: 'FTES Overview for Kern County Community College District',
     image: '/images/portfolio/kccd.gif',
     alt: 'FTES Overview for Kern County Community College District',
     tools: ['Tableau'],
     projectUrl:
       'https://public.tableau.com/app/profile/allan.wheeler/viz/FTESOverviewforKernCountyCommunityCollegeDistrict/OverviewofFTESforKernCountCommunityCollegeDistrict',
-    action: { type: 'viewer' },
-  },
-  {
-    title: 'Protectionism through history',
-    image: '/images/portfolio/protectionism-madness.gif',
-    alt: 'Animated radial timeline of protectionist policies throughout United States history',
-    tools: ['D3.js'],
     action: { type: 'viewer' },
   },
   {
