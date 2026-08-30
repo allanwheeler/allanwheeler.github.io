@@ -155,7 +155,8 @@ const projectDetails: Project[] = [
     action: { type: 'viewer' },
   },
   {
-    title: 'State and local government spending as a percentage of personal income',
+    title:
+      'State and local government spending as a percentage of personal income',
     image: '/images/portfolio/state-local-spending.gif',
     alt: 'Animated ranking of state and local government spending as a percentage of personal income from 1962 to 2020',
     tools: ['D3.js'],
@@ -176,6 +177,14 @@ const projectDetails: Project[] = [
     tools: ['D3.js', 'Svelte'],
     action: { type: 'viewer' },
   },
+  {
+    title: 'Uncontested midterms',
+    image: '/images/portfolio/ucontested-midterms.mp4',
+    mediaType: 'video',
+    alt: 'Video demonstration of an interactive visualization about uncontested midterm elections',
+    tools: ['D3.js', 'Svelte'],
+    action: { type: 'viewer' },
+  },
 ];
 
 const projectByImage = new Map(
@@ -191,6 +200,7 @@ const getProject = (image: string): Project => {
 // Reorder these lines to tailor the two desktop columns for each application.
 export const projectColumns = {
   left: [
+    getProject('/images/portfolio/ucontested-midterms.mp4'),
     getProject('/images/portfolio/2026-tax-competitiveness.gif'),
     getProject('/images/portfolio/cato-social-security.png'),
     getProject('/images/portfolio/datawrapper-scrolly.mp4'),
