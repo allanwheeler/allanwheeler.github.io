@@ -183,6 +183,7 @@ const projectDetails: Project[] = [
     mediaType: 'video',
     alt: 'Video demonstration of an interactive visualization about uncontested midterm elections',
     tools: ['D3.js', 'Svelte'],
+    projectUrl: 'https://uncontested-election-map.allanxwheeler.workers.dev/',
     action: { type: 'viewer' },
   },
 ];
