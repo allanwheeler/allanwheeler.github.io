@@ -1,0 +1,116 @@
+---
+import { ExternalLink } from '@lucide/astro';
+import type { Project } from '../data/data';
+
+interface Props {
+  project: Project;
+}
+
+const { project } = Astro.props;
+---
+
+<article class="project">
+  {
+    project.action.type === 'viewer' ? (
+      <button
+        class="visual viewer-trigger"
+        type="button"
+        data-full-media={project.action.fullImage ?? project.image}
+        data-media-type={project.mediaType ?? 'image'}
+        data-alt={project.alt}
+        aria-label={`View ${project.title} full size`}
+      >
+        {project.mediaType === 'video' ? (
+          <video
+            src={project.image}
+            aria-label={project.alt}
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="metadata"
+          />
+        ) : (
+          <img src={project.image} alt={project.alt} loading="lazy" />
+        )}
+      </button>
+    ) : (
+      <a
+        class="visual"
+        href={project.action.href}
+        target={project.action.type === 'external' ? '_blank' : undefined}
+        rel={project.action.type === 'external' ? 'noreferrer' : undefined}
+      >
+        {project.mediaType === 'video' ? (
+          <video
+            src={project.image}
+            aria-label={project.alt}
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="metadata"
+          />
+        ) : (
+          <img src={project.image} alt={project.alt} loading="lazy" />
+        )}
+      </a>
+    )
+  }
+  {
+    project.projectUrl && (
+      <a
+        class="project-link"
+        href={project.projectUrl}
+        target="_blank"
+        rel="noreferrer"
+      >
+        View live project{' '}
+        <ExternalLink aria-hidden="true" size={12} stroke-width={1.6} />
+      </a>
+    )
+  }
+</article>
+
+<style>
+  .project {
+    margin-bottom: 28px;
+  }
+  .visual {
+    display: block;
+    width: 100%;
+    border: 0;
+    padding: 0;
+    background: none;
+    cursor: zoom-in;
+    transition: scale 150ms ease-out;
+  }
+  a.visual {
+    cursor: pointer;
+  }
+  .visual :is(img, video) {
+    display: block;
+    width: 100%;
+    background: #f1f1f1;
+    transition: opacity 150ms ease-out;
+  }
+  .visual:hover :is(img, video) {
+    opacity: 0.9;
+  }
+  .visual:active {
+    scale: 0.96;
+  }
+  .project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 7px;
+    color: var(--muted-text-color);
+    font-size: 0.7em;
+    text-decoration: none;
+    transition: color 150ms ease-out;
+  }
+  .project-link:hover {
+    color: var(--text-color);
+  }
+</style>

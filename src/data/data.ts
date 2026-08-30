@@ -1,6 +1,7 @@
 export type Project = {
   title: string;
   image: string;
+  mediaType?: 'image' | 'video';
   alt: string;
   tools: string[];
   projectUrl?: string;
@@ -10,7 +11,7 @@ export type Project = {
     | { type: 'internal'; href: string };
 };
 
-export const projects: Project[] = [
+const projectDetails: Project[] = [
   {
     title: '2026 state tax competitiveness rankings',
     image: '/images/portfolio/2026-tax-competitiveness.gif',
@@ -115,4 +116,108 @@ export const projects: Project[] = [
     tools: ['Datawrapper'],
     action: { type: 'viewer' },
   },
+  {
+    title: 'Deceptive interrogation techniques often induce false confessions',
+    image: '/images/portfolio/deceptive-interrogation.png',
+    alt: 'Waffle charts comparing false confessions among overturned wrongful convictions and murder convictions',
+    tools: ['Datawrapper'],
+    action: { type: 'viewer' },
+  },
+  {
+    title: 'The federal government owns half the land in the West',
+    image: '/images/portfolio/federal-land.png',
+    alt: 'Tile grid chart showing federal land ownership as a share of total land by region and state',
+    tools: ['Datawrapper'],
+    action: { type: 'viewer' },
+  },
+  {
+    title:
+      'Goods traders accounted for more than 80 percent of net jobs created in US manufacturing in 2022',
+    image: '/images/portfolio/goods-traders.png',
+    alt: 'Stacked bar chart comparing the share of net jobs created by goods-trader status in manufacturing and nonmanufacturing',
+    tools: ['Datawrapper'],
+    action: { type: 'viewer' },
+  },
+  {
+    title:
+      'Total used capacity of international internet bandwidth has increased rapidly',
+    image: '/images/portfolio/intl-internet-capacity.png',
+    alt: 'Stacked area chart showing international internet bandwidth capacity by region from 2015 to 2022',
+    tools: ['Datawrapper'],
+    action: { type: 'viewer' },
+  },
+  {
+    title:
+      'The partisan gap on aid to Ukraine has shifted significantly since the start of the war',
+    image: '/images/portfolio/partisan-gap.png',
+    alt: 'Slope charts comparing views on United States support for Ukraine by political affiliation in 2022 and 2024',
+    tools: ['Datawrapper'],
+    action: { type: 'viewer' },
+  },
+  {
+    title: 'State and local government spending as a percentage of personal income',
+    image: '/images/portfolio/state-local-spending.gif',
+    alt: 'Animated ranking of state and local government spending as a percentage of personal income from 1962 to 2020',
+    tools: ['D3.js'],
+    action: { type: 'viewer' },
+  },
+  {
+    title: 'CPTPP and RCEP countries',
+    image: '/images/portfolio/venn.png',
+    alt: 'Venn diagrams comparing applicants and partners in the CPTPP and RCEP trade agreements',
+    tools: ['Datawrapper'],
+    action: { type: 'viewer' },
+  },
+  {
+    title: 'Scrollytelling demo',
+    image: '/images/portfolio/datawrapper-scrolly.mp4',
+    mediaType: 'video',
+    alt: 'Video demonstration of an interactive scrollytelling project',
+    tools: ['D3.js', 'Svelte'],
+    action: { type: 'viewer' },
+  },
 ];
+
+const projectByImage = new Map(
+  projectDetails.map(project => [project.image, project]),
+);
+
+const getProject = (image: string): Project => {
+  const project = projectByImage.get(image);
+  if (!project) throw new Error(`Unknown project image: ${image}`);
+  return project;
+};
+
+// Reorder these lines to tailor the two desktop columns for each application.
+export const projectColumns = {
+  left: [
+    getProject('/images/portfolio/2026-tax-competitiveness.gif'),
+    getProject('/images/portfolio/cato-social-security.png'),
+    getProject('/images/portfolio/datawrapper-scrolly.mp4'),
+    getProject('/images/portfolio/protectionism-madness.gif'),
+    getProject('/images/portfolio/green-card-cap.png'),
+    getProject('/images/portfolio/venn.png'),
+    getProject('/images/portfolio/goods-traders.png'),
+    getProject('/images/portfolio/%20buyer-seller-surplus.webp'),
+    getProject('/images/portfolio/kern-county-city-growth.png'),
+    getProject('/images/portfolio/tariff-flowchart.gif'),
+  ],
+  right: [
+    getProject('/images/portfolio/fraiser-beeswarm.gif'),
+    getProject('/images/portfolio/sf-chart.png'),
+    getProject('/images/portfolio/agency-consolidation.gif'),
+    getProject('/images/portfolio/deceptive-interrogation.png'),
+    getProject('/images/portfolio/rent-stabilized-housing-nyc.png'),
+    getProject('/images/portfolio/kccd.gif'),
+    getProject('/images/portfolio/bkfd-murders.png'),
+    getProject('/images/portfolio/federal-land.png'),
+    getProject('/images/portfolio/intl-internet-capacity.png'),
+    getProject('/images/portfolio/state-local-spending.gif'),
+    getProject('/images/portfolio/partisan-gap.png'),
+  ],
+};
+
+export const projects = Array.from(
+  { length: Math.max(projectColumns.left.length, projectColumns.right.length) },
+  (_, index) => [projectColumns.left[index], projectColumns.right[index]],
+).flatMap(row => row.filter((project): project is Project => Boolean(project)));

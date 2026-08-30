@@ -1,63 +1,49 @@
 ---
-import { ExternalLink } from '@lucide/astro';
-import { projects } from '../data/data';
+import { projectColumns, projects } from '../data/data';
+import ProjectCard from './ProjectCard.astro';
+
+const columns = [projectColumns.left, projectColumns.right];
 ---
 
 <div class="gallery">
   {
-    projects.map(project => (
-      <article class="project">
-        {project.action.type === 'viewer' ? (
-          <button
-            class="visual viewer-trigger"
-            type="button"
-            data-full-image={project.action.fullImage ?? project.image}
-            data-alt={project.alt}
-            aria-label={`View ${project.title} full size`}
-          >
-            <img src={project.image} alt={project.alt} loading="lazy" />
-          </button>
-        ) : (
-          <a
-            class="visual"
-            href={project.action.href}
-            target={project.action.type === 'external' ? '_blank' : undefined}
-            rel={project.action.type === 'external' ? 'noreferrer' : undefined}
-          >
-            <img src={project.image} alt={project.alt} loading="lazy" />
-          </a>
-        )}
-        {project.projectUrl && (
-          <a
-            class="project-link"
-            href={project.projectUrl}
-            target="_blank"
-            rel="noreferrer"
-          >
-            View live project{' '}
-            <ExternalLink aria-hidden="true" size={12} stroke-width={1.6} />
-          </a>
-        )}
-      </article>
+    columns.map(column => (
+      <div class="column">
+        {column.map(project => <ProjectCard project={project} />)}
+      </div>
     ))
   }
 </div>
-<dialog class="viewer" aria-label="Full-size project image">
-  <button class="close" type="button" aria-label="Close image viewer"
+<div class="mobile-gallery">
+  {
+    projects.map(project => <ProjectCard project={project} />)
+  }
+</div>
+<dialog class="viewer" aria-label="Full-size project media">
+  <button class="close" type="button" aria-label="Close media viewer"
     >Close</button
   >
-  <figure><img src="" alt="" /></figure>
+  <figure>
+    <img src="" alt="" />
+    <video src="" controls autoplay muted loop playsinline></video>
+  </figure>
 </dialog>
 <script>
   const dialog = document.querySelector<HTMLDialogElement>('.viewer');
   const dialogImage = dialog?.querySelector('img');
+  const dialogVideo = dialog?.querySelector('video');
   document
     .querySelectorAll<HTMLButtonElement>('.viewer-trigger')
     .forEach(trigger =>
       trigger.addEventListener('click', () => {
-        if (!dialog || !dialogImage) return;
-        dialogImage.src = trigger.dataset.fullImage ?? '';
-        dialogImage.alt = trigger.dataset.alt ?? '';
+        if (!dialog || !dialogImage || !dialogVideo) return;
+        const isVideo = trigger.dataset.mediaType === 'video';
+        const source = trigger.dataset.fullMedia ?? '';
+        dialogImage.hidden = isVideo;
+        dialogVideo.hidden = !isVideo;
+        dialogImage.src = isVideo ? '' : source;
+        dialogImage.alt = isVideo ? '' : (trigger.dataset.alt ?? '');
+        dialogVideo.src = isVideo ? source : '';
         dialog.showModal();
       }),
     );
@@ -70,52 +56,12 @@ import { projects } from '../data/data';
 </script>
 <style>
   .gallery {
-    columns: 2;
-    column-gap: 16px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
   }
-  .project {
-    break-inside: avoid;
-    margin-bottom: 16px;
-  }
-  .visual {
-    display: block;
-    width: 100%;
-    border: 0;
-    padding: 0;
-    background: none;
-    cursor: zoom-in;
-    transition-property: scale;
-    transition-duration: 150ms;
-    transition-timing-function: ease-out;
-  }
-  a.visual {
-    cursor: pointer;
-  }
-  .visual img {
-    width: 100%;
-    background: #f1f1f1;
-    transition-property: opacity;
-    transition-duration: 150ms;
-    transition-timing-function: ease-out;
-  }
-  .visual:hover img {
-    opacity: 0.9;
-  }
-  .visual:active {
-    scale: 0.96;
-  }
-  .project-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    margin-top: 7px;
-    color: var(--muted-text-color);
-    font-size: 0.7em;
-    text-decoration: none;
-    transition: color 150ms ease-out;
-  }
-  .project-link:hover {
-    color: var(--text-color);
+  .mobile-gallery {
+    display: none;
   }
   .viewer {
     width: min(94vw, 1200px);
@@ -135,10 +81,15 @@ import { projects } from '../data/data';
   .viewer figure {
     margin: 0;
   }
-  .viewer img {
+  .viewer :is(img, video) {
+    display: block;
+    max-width: 100%;
     max-height: calc(92vh - 100px);
     margin: auto;
     object-fit: contain;
+  }
+  .viewer [hidden] {
+    display: none;
   }
   .close {
     position: absolute;
@@ -161,7 +112,10 @@ import { projects } from '../data/data';
   }
   @media (max-width: 700px) {
     .gallery {
-      columns: 1;
+      display: none;
+    }
+    .mobile-gallery {
+      display: block;
     }
   }
 </style>
