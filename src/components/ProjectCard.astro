@@ -4,9 +4,10 @@ import type { Project } from '../data/data';
 
 interface Props {
   project: Project;
+  disableViewer?: boolean;
 }
 
-const { project } = Astro.props;
+const { project, disableViewer = false } = Astro.props;
 ---
 
 <article class="project">
@@ -15,6 +16,7 @@ const { project } = Astro.props;
       <button
         class="visual viewer-trigger"
         type="button"
+        disabled={disableViewer}
         data-full-media={project.action.fullImage ?? project.image}
         data-media-type={project.mediaType ?? 'image'}
         data-alt={project.alt}
@@ -97,8 +99,17 @@ const { project } = Astro.props;
   .visual:hover :is(img, video) {
     opacity: 0.9;
   }
+  .visual:disabled {
+    cursor: default;
+  }
+  .visual:disabled:hover :is(img, video) {
+    opacity: 1;
+  }
   .visual:active {
     scale: 0.96;
+  }
+  .visual:disabled:active {
+    scale: none;
   }
   .project-link {
     display: inline-flex;

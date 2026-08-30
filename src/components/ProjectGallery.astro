@@ -16,7 +16,9 @@ const columns = [projectColumns.left, projectColumns.right];
 </div>
 <div class="mobile-gallery">
   {
-    projects.map(project => <ProjectCard project={project} />)
+    projects.map(project => (
+      <ProjectCard project={project} disableViewer={true} />
+    ))
   }
 </div>
 <dialog class="viewer" aria-label="Full-size project media">
