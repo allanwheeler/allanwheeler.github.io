@@ -216,10 +216,10 @@ export const projectColumns = {
   right: [
     getProject('/images/portfolio/fraiser-beeswarm.gif'),
     getProject('/images/portfolio/sf-chart.png'),
-    getProject('/images/portfolio/kccd.gif'),
-    getProject('/images/portfolio/deceptive-interrogation.png'),
     getProject('/images/portfolio/agency-consolidation.gif'),
+    getProject('/images/portfolio/deceptive-interrogation.png'),
     getProject('/images/portfolio/rent-stabilized-housing-nyc.png'),
+    getProject('/images/portfolio/kccd.gif'),
     getProject('/images/portfolio/bkfd-murders.png'),
     getProject('/images/portfolio/federal-land.png'),
     getProject('/images/portfolio/intl-internet-capacity.png'),
