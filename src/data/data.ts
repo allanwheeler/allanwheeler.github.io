@@ -201,11 +201,11 @@ const getProject = (image: string): Project => {
 // Reorder these lines to tailor the two desktop columns for each application.
 export const projectColumns = {
   left: [
+    getProject('/images/portfolio/agency-consolidation.gif'),
     getProject('/images/portfolio/ucontested-midterms.mp4'),
     getProject('/images/portfolio/2026-tax-competitiveness.gif'),
     getProject('/images/portfolio/cato-social-security.png'),
     getProject('/images/portfolio/datawrapper-scrolly.mp4'),
-    getProject('/images/portfolio/protectionism-madness.gif'),
     getProject('/images/portfolio/green-card-cap.png'),
     getProject('/images/portfolio/venn.png'),
     getProject('/images/portfolio/goods-traders.png'),
@@ -215,8 +215,8 @@ export const projectColumns = {
   ],
   right: [
     getProject('/images/portfolio/fraiser-beeswarm.gif'),
+    getProject('/images/portfolio/protectionism-madness.gif'),
     getProject('/images/portfolio/sf-chart.png'),
-    getProject('/images/portfolio/agency-consolidation.gif'),
     getProject('/images/portfolio/deceptive-interrogation.png'),
     getProject('/images/portfolio/rent-stabilized-housing-nyc.png'),
     getProject('/images/portfolio/kccd.gif'),
