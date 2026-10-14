@@ -13,6 +13,15 @@ export type Project = {
 
 const projectDetails: Project[] = [
   {
+    title: 'Restoring Free Enterprise',
+    image: '/images/portfolio/restoring-free-enterprise.mp4',
+    mediaType: 'video',
+    alt: 'Restoring Free Enterprise video',
+    tools: [],
+    projectUrl: 'https://www.cato.org/restoring-free-enterprise',
+    action: { type: 'viewer' },
+  },
+  {
     title: '2026 state tax competitiveness rankings',
     image: '/images/portfolio/2026-tax-competitiveness.gif',
     alt: 'Interactive map and ranking chart comparing state tax competitiveness in 2026',
@@ -214,6 +223,7 @@ export const projectColumns = {
     getProject('/images/portfolio/tariff-flowchart.gif'),
   ],
   right: [
+    getProject('/images/portfolio/restoring-free-enterprise.mp4'),
     getProject('/images/portfolio/fraiser-beeswarm.gif'),
     getProject('/images/portfolio/protectionism-madness.gif'),
     getProject('/images/portfolio/sf-chart.png'),
